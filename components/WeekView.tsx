@@ -14,7 +14,13 @@ function WeekView(props: any) {
     "Saturday",
   ];
   return (
-    <View>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       {days.map((day) => (
         <Link href="./Workout" key={day}>
           <DayCard key={day} day={day} />

@@ -11,7 +11,8 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <WeekView />
+      <Text>This is the Home Screen</Text>
+      <Link href="./week-view">Week View</Link>
     </View>
   );
 }
