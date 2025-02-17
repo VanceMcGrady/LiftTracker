@@ -1,7 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-function DayCard(props: { day: string }) {
+function DayCard(props: any) {
+  console.log("DayCard props", props.routine);
+  const { routine } = props;
   return (
     <View
       style={{
@@ -14,7 +16,8 @@ function DayCard(props: { day: string }) {
         width: "100%",
       }}
     >
-      <Text>{props.day}</Text>
+      <Text>{routine.day}</Text>
+      <Text>{routine.workout || "Rest Day"}</Text>
     </View>
   );
 }
