@@ -1,5 +1,10 @@
-import { Text, View } from "react-native";
+import { router } from "expo-router";
+import { Text, View, Button } from "react-native";
 
 export default function Header() {
-  return <Text>Header</Text>;
+  return (
+    <View>
+      <Button title="Back" onPress={() => router.back()} />
+    </View>
+  );
 }
