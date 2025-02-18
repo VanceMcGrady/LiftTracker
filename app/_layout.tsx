@@ -23,6 +23,8 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBlockStart: 100,
+    paddingBlockEnd: 100,
   },
   header: {
     height: 60,

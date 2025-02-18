@@ -56,11 +56,12 @@ function WeekView(props: any) {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
+        gap: 10,
       }}
     >
       {schedule.map((routine: any) => (
         <Link href="./Workout" key={routine.day}>
-          <DayCard key={routine.day} routine={routine} />
+          <DayCard key={routine.day} routine={routine} f />
         </Link>
       ))}
     </View>
