@@ -22,7 +22,6 @@ function WeekView(props: any) {
         <Link
           href={{
             pathname: `./workout/${routine.day}`,
-            params: { day: routine.day },
           }}
           key={routine.day}
         >

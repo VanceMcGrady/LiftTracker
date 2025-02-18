@@ -1,16 +1,26 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { useSearchParams, useLocalSearchParams } from "expo-router/build/hooks";
-
+import { useLocalSearchParams } from "expo-router/build/hooks";
+import { WorkoutContext } from "@/context/RoutineContext";
+import { useContext } from "react";
 export default function Workout() {
   const { day } = useLocalSearchParams();
 
-  console.log("params", useLocalSearchParams());
+  const { schedule } = useContext(WorkoutContext) as any;
+
+  const routine = schedule.find((routine: any) => routine.day === day).routine;
+
+  console.log("routine: ", routine);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Workout for {day}</Text>
-      {/* Add your workout details here based on the day */}
+      {routine.map(
+        (exercise: any) => (
+          console.log("exercise: ", exercise),
+          (<Text key={exercise.exercise}>{exercise.exercise}</Text>)
+        )
+      )}
     </View>
   );
 }
