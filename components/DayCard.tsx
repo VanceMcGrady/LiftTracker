@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text } from "react-native";
 
 function DayCard(props: any) {
-  console.log("DayCard props", props.routine);
   const { routine } = props;
   return (
     <View
