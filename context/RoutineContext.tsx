@@ -5,7 +5,7 @@ export const WorkoutContext = createContext({});
 
 // context/WorkoutContext.js
 export function WorkoutProvider({ children }: any) {
-  const [routine, setRoutine] = useState([
+  const [schedule, setSchedule] = useState([
     {
       day: "Monday",
       workout: "Chest",
@@ -53,8 +53,8 @@ export function WorkoutProvider({ children }: any) {
 
   // Value to be shared
   const value = {
-    routine,
-    setRoutine,
+    schedule,
+    setSchedule,
   };
 
   return (

@@ -2,17 +2,19 @@ import { Stack } from "expo-router";
 import { Text, View, StyleSheet } from "react-native";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
+import { WorkoutProvider } from "@/context/RoutineContext";
 export default function RootLayout() {
   return (
     <View style={styles.container}>
       <Header />
       <View style={styles.content}>
-        <Stack
-          screenOptions={{
-            headerShown: false, // Disable the default header
-          }}
-        />
+        <WorkoutProvider>
+          <Stack
+            screenOptions={{
+              headerShown: false, // Disable the default header
+            }}
+          />
+        </WorkoutProvider>
       </View>
       <Footer />
     </View>
