@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
-
+import OpenAI from "openai";
 // Create a context
 export const WorkoutContext = createContext({});
 
@@ -19,7 +19,7 @@ export function WorkoutProvider({ children }: any) {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer YOUR_OPENAI_API_KEY`,
+              Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
             },
           }
         );
@@ -27,6 +27,7 @@ export function WorkoutProvider({ children }: any) {
         const generatedSchedule = response.data.choices[0].text;
         // Parse the generated schedule and set it to the state
         setSchedule(JSON.parse(generatedSchedule));
+        console.log("Generated workout schedule:", generatedSchedule);
       } catch (error) {
         console.error("Error fetching workout schedule:", error);
       }
