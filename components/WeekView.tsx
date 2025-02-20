@@ -6,7 +6,14 @@ import { WorkoutContext } from "@/context/RoutineContext";
 
 function WeekView(props: any) {
   const { schedule } = React.useContext(WorkoutContext) as any;
-  console.log("schedule", schedule);
+  //console.log("schedule in week view", schedule[0]);
+  if (!schedule.length) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Creating your workout schedule...</Text>
+      </View>
+    );
+  }
 
   return (
     <View
@@ -21,11 +28,11 @@ function WeekView(props: any) {
       {schedule.map((routine: any) => (
         <Link
           href={{
-            pathname: `./workout/${routine.day}`,
+            pathname: `./workout/${routine.dayOfWeek}`,
           }}
-          key={routine.day}
+          key={routine.id}
         >
-          <DayCard key={routine.day} routine={routine} />
+          <DayCard key={routine.id} routine={routine} />
         </Link>
       ))}
     </View>

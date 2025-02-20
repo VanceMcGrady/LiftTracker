@@ -13,14 +13,12 @@ const exerciseSchema = z.object({
 const workoutSchema = z.object({
   id: z.string(),
   name: z.string(),
+  dayOfWeek: z.string(),
   exercises: z.array(exerciseSchema),
 });
 
-const scheduleSchema = z.object({
-  id: z.string(),
-  name: z.string(),
+export const scheduleSchema = z.object({
   workouts: z.array(workoutSchema),
-  dateRange: z.tuple([z.date(), z.date()]),
 });
 
 export type Schedule = z.infer<typeof scheduleSchema>;

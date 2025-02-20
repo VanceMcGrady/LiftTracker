@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
-import { z } from "zod";
-import { zodResponseFormat } from "openai/helpers/zod";
+import {
+  scheduleSchema,
+  scheduleResponseFormat,
+} from "@/schema/ScheduleSchema";
 import OpenAI from "openai";
 
 // Create a context
@@ -9,7 +11,8 @@ export const WorkoutContext = createContext({});
 export function WorkoutProvider({ children }: any) {
   const [schedule, setSchedule] = useState([]);
 
-  console.log("process.env.OPENAI_API_KEY", process.env.OPENAI_API_KEY);
+  //
+  // console.log("process.env.OPENAI_API_KEY", process.env.OPENAI_API_KEY);
   const openai: any = new OpenAI({
     apiKey:
       "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",
@@ -24,12 +27,13 @@ export function WorkoutProvider({ children }: any) {
           messages: [
             { role: "user", content: "write a workout routine for this week" },
           ],
+          response_format: scheduleResponseFormat,
         });
-        console.log("response: ", response.choices[0].message.content);
+        //console.log("response: ", response.choices[0].message.content);
         const generatedSchedule = response.choices[0].message.content;
         // Parse the generated schedule and set it to the state
-        setSchedule(JSON.parse(generatedSchedule));
-        console.log("Generated workout schedule:", generatedSchedule);
+        setSchedule(JSON.parse(generatedSchedule).workouts);
+        // console.log("Generated workout schedule:", generatedSchedule);
       } catch (error) {
         console.error("Error fetching workout schedule:", error);
       }

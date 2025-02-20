@@ -8,11 +8,15 @@ WorkoutContext;
 
 export default function Index() {
   const { day } = useLocalSearchParams();
-  console.log("day", day);
+  // console.log("day", day);
   const { schedule } = useContext(WorkoutContext) as any;
-  console.log("schedule", schedule);
+  // console.log("schedule", schedule);
+  if (!schedule) {
+    return <Text>Loading...</Text>;
+  }
+
   const routine = schedule.filter((routine: any) => routine.day === day);
-  console.log("routine", routine);
+  // console.log("routine", routine);
   return (
     <View
       style={{
