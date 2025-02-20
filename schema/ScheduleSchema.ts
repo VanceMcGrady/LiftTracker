@@ -24,8 +24,15 @@ const scheduleSchema = z.object({
 });
 
 export type Schedule = z.infer<typeof scheduleSchema>;
-export const scheduleResponseFormat = zodResponseFormat(scheduleSchema);
+export const scheduleResponseFormat = zodResponseFormat(
+  scheduleSchema,
+  "schedule"
+);
 
-//  In the  ScheduleSchema.ts  file, we define the schema for a schedule. A schedule has an  id ,  name ,  workouts , and  dateRange . Each workout has an  id ,  name , and an array of  exercises . Each exercise has an  id ,  name ,  sets ,  reps ,  weight , and  rest .
-//  We also define a  Schedule  type that is the inferred type of the  scheduleSchema . We also define a  scheduleResponseFormat  that is used to format the response of the schedule schema.
+//  In the  ScheduleSchema.ts  file, we define the schema for a schedule. A schedule has an
+// id ,  name ,  workouts , and  dateRange . Each workout has an  id ,  name , and an array
+// of  exercises . Each exercise has an  id ,  name ,  sets ,  reps ,  weight , and  rest .
+//  We also define a  Schedule  type that is the inferred type of the  scheduleSchema .
+// We also define a  scheduleResponseFormat  that is used to format the response of
+// the schedule schema.
 //  Now that we have defined the schema for the schedule, we can use it to validate the data.
