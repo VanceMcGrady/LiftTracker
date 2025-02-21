@@ -8,19 +8,26 @@ export default function Workout() {
 
   const { schedule } = useContext(WorkoutContext) as any;
 
-  const routine = schedule.find((routine: any) => routine.day === day).routine;
-
+  const routine = schedule.find((routine: any) => routine.dayOfWeek === day);
+  console.log("day: ", day);
+  console.log("schedule: ", schedule);
   console.log("routine: ", routine);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Workout for {day}</Text>
-      {routine.map(
-        (exercise: any) => (
-          console.log("exercise: ", exercise),
-          (<Text key={exercise.exercise}>{exercise.exercise}</Text>)
-        )
-      )}
+      {routine.exercises.map((exercise: any) => {
+        return (
+          <View key={exercise.name}>
+            <Text>{exercise.name}</Text>
+            {Array.from({ length: exercise.sets }).map((_, index) => (
+              <Text key={index}>
+                Set: {index + 1} / Reps: {exercise.reps}
+              </Text>
+            ))}
+          </View>
+        );
+      })}
     </View>
   );
 }

@@ -4,7 +4,6 @@ import { View, Text } from "react-native";
 function DayCard(props: any) {
   const { routine } = props;
 
-  console.log("routine in DayCard: ", routine);
   return (
     <View
       style={{
