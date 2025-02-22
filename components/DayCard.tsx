@@ -7,7 +7,6 @@ function DayCard(props: any) {
   return (
     <View
       style={{
-        backgroundColor: "lightblue",
         padding: 10,
         borderWidth: 1,
         borderColor: "black",
