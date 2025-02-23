@@ -3,7 +3,6 @@ import {
   scheduleSchema,
   scheduleResponseFormat,
 } from "@/schema/ScheduleSchema";
-import OpenAI from "openai";
 
 // Create a context
 export const WorkoutContext = createContext({});
@@ -11,36 +10,9 @@ export const WorkoutContext = createContext({});
 export function WorkoutProvider({ children }: any) {
   const [schedule, setSchedule] = useState([]);
 
-  //
-  // console.log("process.env.OPENAI_API_KEY", process.env.OPENAI_API_KEY);
-  const openai: any = new OpenAI({
-    apiKey:
-      "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",
-  });
-
   useEffect(() => {
-    const fetchWorkoutSchedule = async () => {
-      try {
-        const response = await openai.chat.completions.create({
-          model: "gpt-4o",
-          store: true,
-          messages: [
-            { role: "user", content: "write a workout routine for this week" },
-          ],
-          response_format: scheduleResponseFormat,
-        });
-        //console.log("response: ", response.choices[0].message.content);
-        const generatedSchedule = response.choices[0].message.content;
-        // Parse the generated schedule and set it to the state
-        setSchedule(JSON.parse(generatedSchedule).workouts);
-        // console.log("Generated workout schedule:", generatedSchedule);
-      } catch (error) {
-        console.error("Error fetching workout schedule:", error);
-      }
-    };
-
-    fetchWorkoutSchedule();
-  }, []);
+    // setSchedule() to the value of the schedule retreived from the backend
+  });
 
   // Value to be shared
   const value = {
