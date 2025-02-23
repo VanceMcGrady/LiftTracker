@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import {
   scheduleSchema,
   scheduleResponseFormat,
-} from "@/schema/ScheduleSchema";
+} from "../../backend/schema/ScheduleSchema";
 
 // Create a context
 export const WorkoutContext = createContext({});
