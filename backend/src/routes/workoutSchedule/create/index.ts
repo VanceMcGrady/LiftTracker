@@ -1,13 +1,13 @@
+import exp from "constants";
 import express from "express";
+import { Router } from "express";
+
 const router = express.Router();
-import createRoutes from "./create/index.js";
 
 router.get("/", (req, res) => {
   console.log("GET /workoutSchedule");
   res.send("Workout Schedule GET");
 });
-router.post("/", (req, res) => {});
-
-router.use("/create", createRoutes);
+router.post("/", (req, res) => {}); // POST /workoutSchedule    Create a new workout schedule
 
 export default router;
