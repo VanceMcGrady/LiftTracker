@@ -6,7 +6,6 @@ router.get("/", (req, res) => {
   console.log("GET /workoutSchedule");
   res.send("Workout Schedule GET");
 });
-router.post("/", (req, res) => {});
 
 router.use("/create", createRoutes);
 
