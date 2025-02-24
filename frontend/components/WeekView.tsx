@@ -6,7 +6,7 @@ import { WorkoutContext } from "@/context/RoutineContext";
 
 function WeekView(props: any) {
   const { schedule } = React.useContext(WorkoutContext) as any;
-  //console.log("schedule in week view", schedule[0]);
+  console.log("schedule in week view", schedule);
   if (!schedule.length) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
