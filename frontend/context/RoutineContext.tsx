@@ -13,7 +13,7 @@ export function WorkoutProvider({ children }: any) {
         .post("http://localhost:3000/workoutSchedule/create", { new: true })
         .then((res) => {
           const schedule = res.data;
-          console.log("schedule: ", schedule, typeof schedule);
+
           setSchedule(schedule.workouts);
         });
     } catch (error) {
