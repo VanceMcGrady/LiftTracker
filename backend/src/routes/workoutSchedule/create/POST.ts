@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { Request, Response } from "express";
+import { scheduleResponseFormat } from "../../../schema/ScheduleSchema.js";
 
 export default async function createPost(req: Request, res: Response) {
   console.log("POST /workoutSchedule/create", req.body);
@@ -15,11 +16,11 @@ export default async function createPost(req: Request, res: Response) {
       messages: [
         { role: "user", content: "write a workout routine for this week" },
       ],
-      //response_format: scheduleResponseFormat,
+      response_format: scheduleResponseFormat,
     });
     //console.log("response: ", response.choices[0].message.content);
     const generatedSchedule = response.choices[0].message.content;
-    // Parse the generated schedule and set it to the state
+    console.log("Generated workout schedule:", generatedSchedule);
     res.send(generatedSchedule);
     // console.log("Generated workout schedule:", generatedSchedule);
   } catch (error) {
