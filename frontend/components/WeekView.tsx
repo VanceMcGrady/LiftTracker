@@ -17,29 +17,27 @@ function WeekView(props: any) {
   }
 
   return (
-    <WorkoutProvider>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          gap: 10,
-          paddingHorizontal: 10,
-        }}
-      >
-        {schedule.map((routine: any) => (
-          <Link
-            href={{
-              pathname: `./workout/${routine.dayOfWeek}`,
-            }}
-            key={routine.id}
-          >
-            <DayCard key={routine.id} routine={routine} />
-          </Link>
-        ))}
-      </View>
-    </WorkoutProvider>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        gap: 10,
+        paddingHorizontal: 10,
+      }}
+    >
+      {schedule.map((routine: any) => (
+        <Link
+          href={{
+            pathname: `./workout/${routine.dayOfWeek}`,
+          }}
+          key={routine.id}
+        >
+          <DayCard key={routine.id} routine={routine} />
+        </Link>
+      ))}
+    </View>
   );
 }
 
