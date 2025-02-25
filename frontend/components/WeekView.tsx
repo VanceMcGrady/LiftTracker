@@ -7,7 +7,7 @@ import { WorkoutProvider } from "@/context/RoutineContext";
 
 function WeekView(props: any) {
   const { schedule } = React.useContext(WorkoutContext) as any;
-  console.log("WeekView", schedule);
+
   if (!schedule.length) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
