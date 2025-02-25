@@ -8,6 +8,13 @@
       "when": 1740420016158,
       "tag": "0000_uneven_doctor_doom",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1740431757082,
+      "tag": "0001_minor_nico_minoru",
+      "breakpoints": true
     }
   ]
 }

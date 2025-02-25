@@ -3,21 +3,41 @@ import { Text, View, StyleSheet } from "react-native";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { WorkoutProvider } from "@/context/RoutineContext";
+import { SQLiteProvider, openDatabaseSync } from "expo-sqlite";
+import { drizzle } from "drizzle-orm/expo-sqlite";
+import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
+import migrations from "@/drizzle/migrations";
+import { Suspense } from "react";
+import { ActivityIndicator } from "react-native";
+import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
+
 export default function RootLayout() {
+  const expoDb = openDatabaseSync("drizzle.db");
+  useDrizzleStudio(expoDb);
+  const db = drizzle(expoDb);
+
+  const { success, error } = useMigrations(db, migrations);
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.content}>
-        <WorkoutProvider>
-          <Stack
-            screenOptions={{
-              headerShown: false, // Disable the default header
-            }}
-          />
-        </WorkoutProvider>
-      </View>
-      <Footer />
-    </View>
+    <Suspense fallback={<ActivityIndicator />}>
+      <SQLiteProvider
+        databaseName="drizzle.db"
+        options={{ enableChangeListener: true }}
+      >
+        <View style={styles.container}>
+          <Header />
+          <View style={styles.content}>
+            <WorkoutProvider>
+              <Stack
+                screenOptions={{
+                  headerShown: false, // Disable the default header
+                }}
+              />
+            </WorkoutProvider>
+          </View>
+          <Footer />
+        </View>
+      </SQLiteProvider>
+    </Suspense>
   );
 }
 
