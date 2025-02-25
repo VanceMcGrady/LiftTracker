@@ -2,8 +2,10 @@ import { View, Text } from "react-native";
 import React from "react";
 import Colors from "@/colors/Colors";
 import Button from "@/components/shared/Button";
+import { useRouter } from "expo-router";
 
 export default function LandingScreen() {
+  const router = useRouter();
   return (
     <View>
       <View style={{ padding: 20 }}>
@@ -23,7 +25,7 @@ export default function LandingScreen() {
         <Button
           text="Get Started"
           onPress={() => {
-            console.log("button pressed");
+            router.push("/(auth)/SignUp");
           }}
         />
         <Text
