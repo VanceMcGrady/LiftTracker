@@ -1,3 +1,11 @@
-export function GET(request: Request) {
-  return Response.json({ hello: "world" });
+import { client } from "@/configs/NilePostgresConfig";
+
+export async function POST(req: Request) {
+  await client.connect();
+  const result = await client.query(
+    `
+    INSERT INTO users (email, password)
+    `
+  );
+  return Response.json({});
 }
