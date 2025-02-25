@@ -5,6 +5,7 @@ import Colors from "@/colors/Colors";
 type ButtonProps = {
   text: string;
   onPress: () => void;
+  password?: boolean;
 };
 export default function Button({ text, onPress }: ButtonProps) {
   return (
