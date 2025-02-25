@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React from "react";
 import Colors from "@/colors/Colors";
 import Button from "@/components/shared/Button";
@@ -28,16 +28,18 @@ export default function LandingScreen() {
             router.push("/(auth)/SignUp");
           }}
         />
-        <Text
-          style={{
-            fontSize: 16,
-            textAlign: "center",
-            color: Colors.GRAY,
-            marginTop: 7,
-          }}
-        >
-          Already Have An Account? Sign In Here
-        </Text>
+        <Pressable onPress={() => router.push("/(auth)/SignIn")}>
+          <Text
+            style={{
+              fontSize: 16,
+              textAlign: "center",
+              color: Colors.GRAY,
+              marginTop: 7,
+            }}
+          >
+            Already Have An Account? Sign In Here
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
