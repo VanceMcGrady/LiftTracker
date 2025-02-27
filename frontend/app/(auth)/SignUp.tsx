@@ -1,8 +1,10 @@
-import { View, Text } from "react-native";
+import { View, Text, ToastAndroid } from "react-native";
 import React from "react";
 import TextInputField from "@/components/shared/TextInputField";
 import Button from "@/components/shared/Button";
 import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../configs/FirebaseConfig";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -12,7 +14,16 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const onButtonPress = () => {
-    console.log("Sign Up Button Pressed");
+    if (!email || !password || !firstName || !lastName) {
+      alert("Please fill all the fields");
+      return;
+    }
+    console.log("auth: ", auth);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredendtials) => {})
+      .catch((error) => {
+        alert(`error in signup: ${error.message}`);
+      });
   };
   return (
     <View style={{ paddingTop: 60, padding: 20 }}>
