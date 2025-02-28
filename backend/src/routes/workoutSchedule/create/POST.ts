@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 import { Request, Response } from "express";
-import { scheduleResponseFormat } from "../../../schema/ScheduleSchema.js";
+import { gptConfig } from "../../../config/gptConfig.js";
 
 export default async function createPost(req: Request, res: Response) {
   console.log("POST /workoutSchedule/create", req.body);
@@ -10,14 +10,7 @@ export default async function createPost(req: Request, res: Response) {
       "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",
   });
   try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
-      store: true,
-      messages: [
-        { role: "user", content: "write a workout routine for this week" },
-      ],
-      response_format: scheduleResponseFormat,
-    });
+    const response = await openai.chat.completions.create(gptConfig);
     //console.log("response: ", response.choices[0].message.content);
     const generatedSchedule = response.choices[0].message.content;
     console.log("Generated workout schedule:", generatedSchedule);
