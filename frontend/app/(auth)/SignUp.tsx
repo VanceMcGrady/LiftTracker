@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import TextInputField from "@/components/shared/TextInputField";
 import Button from "@/components/shared/Button";
@@ -9,6 +9,7 @@ import { upload } from "cloudinary-react-native";
 import { cld, options } from "@/configs/Cloudinary";
 import Entypo from "@expo/vector-icons/Entypo";
 import Colors from "@/colors/Colors";
+import * as ImagePicker from "expo-image-picker";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -16,7 +17,23 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 0.5,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setProfileImage(result.assets[0].uri);
+    }
+  };
   const onButtonPress = () => {
     if (!email || !password || !firstName || !lastName) {
       alert("Please fill all the fields");
@@ -53,10 +70,20 @@ export default function SignUp() {
           justifyContent: "center",
         }}
       >
-        <Image
-          style={{ width: 100, height: 100 }}
-          source={require("./../../assets/images/vecteezy_user-profile-icon-profile-avatar-user-icon-male-icon_20911740.png")}
-        ></Image>
+        <TouchableOpacity
+          onPress={() => {
+            pickImage();
+          }}
+        >
+          {profileImage ? (
+            <Image source={{ uri: profileImage }} style={styles.profileImage} />
+          ) : (
+            <Image
+              style={styles.profileImage}
+              source={require("./../../assets/images/vecteezy_user-profile-icon-profile-avatar-user-icon-male-icon_20911740.png")}
+            ></Image>
+          )}
+        </TouchableOpacity>
         <Entypo
           style={{ width: 160, position: "absolute", bottom: 0, right: 0 }}
           name="camera"
@@ -85,3 +112,7 @@ export default function SignUp() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  profileImage: { width: 100, height: 100 },
+});
