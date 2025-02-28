@@ -7,6 +7,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../configs/FirebaseConfig";
 import { upload } from "cloudinary-react-native";
 import { cld, options } from "@/configs/Cloudinary";
+import Entypo from "@expo/vector-icons/Entypo";
+import Colors from "@/colors/Colors";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -43,9 +45,26 @@ export default function SignUp() {
   return (
     <View style={{ paddingTop: 60, padding: 20 }}>
       <Text style={{ fontSize: 20 }}>Create New Account</Text>
-      <Image
-        source={require("./../../assets/images/adaptive-icon.png")}
-      ></Image>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Image
+          style={{ width: 100, height: 100 }}
+          source={require("./../../assets/images/vecteezy_user-profile-icon-profile-avatar-user-icon-male-icon_20911740.png")}
+        ></Image>
+        <Entypo
+          style={{ width: 160, position: "absolute", bottom: 0, right: 0 }}
+          name="camera"
+          size={24}
+          color={Colors.ORANGE}
+        />
+      </View>
+
       <TextInputField
         label="First Name"
         onChangeText={(v) => setFirstName(v)}
