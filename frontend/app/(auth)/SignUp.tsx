@@ -38,10 +38,6 @@ export default function SignUp() {
   };
 
   const onButtonPress = () => {
-    console.log(
-      "proces.env.EXPO_PUBLIC_CLOUDINARY_CLOUD_NAME: ",
-      process.env.EXPO_PUBLIC_CLOUDINARY_CLOUD_NAME
-    );
     if (!email || !password || !firstName || !lastName) {
       alert("Please fill all the fields");
       return;
