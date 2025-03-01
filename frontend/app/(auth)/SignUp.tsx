@@ -10,6 +10,8 @@ import { cld, options } from "@/configs/Cloudinary";
 import Entypo from "@expo/vector-icons/Entypo";
 import Colors from "@/colors/Colors";
 import * as ImagePicker from "expo-image-picker";
+import axios from "axios";
+import { router } from "expo-router";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -34,29 +36,48 @@ export default function SignUp() {
       setProfileImage(result.assets[0].uri);
     }
   };
+
   const onButtonPress = () => {
+    console.log(
+      "proces.env.EXPO_PUBLIC_CLOUDINARY_CLOUD_NAME: ",
+      process.env.EXPO_PUBLIC_CLOUDINARY_CLOUD_NAME
+    );
     if (!email || !password || !firstName || !lastName) {
       alert("Please fill all the fields");
       return;
     }
-    // console.log("auth: ", auth);
-    createUserWithEmailAndPassword(auth, email, password).then(
-      async (userCredendtials) => {
-        await upload(cld, {
-          options: options,
-          file: "https://via.placeholder.com/150",
-          callback: (error, result) => {
-            if (error) {
-              console.error(error);
-            } else {
-              console.log(result);
-            }
-          },
-        }).catch((error) => {
-          alert(`error in signup: ${error.message}`);
-        });
-      }
-    );
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredentials) => {
+        if (profileImage !== "") {
+          // if user has uploaded a profile image}
+          await upload(cld, {
+            options: options,
+            file: profileImage,
+            callback: async (error: any, response: any) => {
+              if (error) {
+                console.error(error);
+              }
+              if (response) {
+                //console.log(response.url);
+                const result = await axios.post(
+                  process.env.EXPO_PUBLIC_HOST_URL + "/user",
+                  {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    image: response.url,
+                  }
+                );
+              }
+            },
+          });
+        }
+        router.push("/week-view");
+      })
+      .catch((error) => {
+        alert(`error in signup: ${error.message}`);
+      });
   };
 
   return (
@@ -114,5 +135,5 @@ export default function SignUp() {
 }
 
 const styles = StyleSheet.create({
-  profileImage: { width: 100, height: 100 },
+  profileImage: { width: 100, height: 100, borderRadius: 50 },
 });

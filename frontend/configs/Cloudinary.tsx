@@ -3,8 +3,8 @@ import { upload } from "cloudinary-react-native";
 
 export const cld = new Cloudinary({
   cloud: {
-    cloudName: process.env.EXPO_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    apiKey: process.env.EXPO_PUBLIC_CLOUDINARY_API_KEY,
+    cloudName: "dekyff0av",
+    apiKey: "753435956175985",
   },
   url: {
     secure: true,
@@ -12,7 +12,7 @@ export const cld = new Cloudinary({
 });
 
 export const options = {
-  uploadPreset: "workout-traker-ai",
+  upload_preset: "workout-tracker-ai-preset",
   tag: "sample",
   unsigned: true,
 };
