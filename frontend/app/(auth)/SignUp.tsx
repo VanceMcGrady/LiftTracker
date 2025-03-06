@@ -3,7 +3,10 @@ import React from "react";
 import TextInputField from "@/components/shared/TextInputField";
 import Button from "@/components/shared/Button";
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../../configs/FirebaseConfig";
 import { upload } from "cloudinary-react-native";
 import { cld, options } from "@/configs/Cloudinary";
