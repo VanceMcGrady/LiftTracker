@@ -48,29 +48,20 @@ export default function SignUp() {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredentials) => {
-        if (profileImage !== "") {
-          // if user has uploaded a profile image}
-          await upload(cld, {
-            options: options,
-            file: profileImage,
-            callback: async (error: any, response: any) => {
-              if (error) {
-                console.error(error);
-              }
-              if (response) {
-                //console.log(response.url);
-                const result = await axios.post(
-                  process.env.EXPO_PUBLIC_HOST_URL + "/user",
-                  {
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    image: response.url,
-                  }
-                );
-              }
-            },
+        const result = await axios
+          .post(process.env.EXPO_PUBLIC_HOST_URL + "/user", {
+            firstName: firstName,
+            lastName: lastName,
+            email: email.toLowerCase(),
+          })
+          .catch((error) => {
+            alert(`POST error in signup
+                  : ${error.message}`);
           });
+        console.log("result: ", result);
+        if (!result) {
+          alert("Error in creating user");
+          return;
         }
         router.push("/week-view");
       })

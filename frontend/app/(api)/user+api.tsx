@@ -1,23 +1,26 @@
 import { client } from "@/configs/NilePostgresConfig";
 
 export async function POST(req: Request) {
-  const { name, email, image } = await req.json();
-
+  const { firstName, lastName, email } = await req.json();
+  console.log("firstName: ", firstName);
+  console.log("lastName: ", lastName);
+  console.log("email: ", email);
   await client.connect();
 
   const result = await client.query(
     `
-    INSERT INTO users VALUES(DEFAULT, '${name}', '${email}', '${image}')
+    INSERT INTO USERS VALUES(DEFAULT, '${firstName}', '${lastName}' ,'${email}', DEFAULT)
     `
   );
   await client.end();
-
+  console.log("result in POST: ", result);
   return Response.json(result);
 }
 
 export async function GET(req: Request) {
-  const email = new URL(req.url).searchParams.get("email");
-  console.log("email: ", email);
+  // get email from query params and convert to lowercase
+  const email = new URL(req.url).searchParams.get("email")?.toLowerCase();
+  //console.log("email: ", email);
   try {
     await client.connect();
 
@@ -25,7 +28,7 @@ export async function GET(req: Request) {
       `SELECT * FROM users WHERE email='${email}'`
     );
     await client.end();
-    console.log("result: ", result);
+    //console.log("result in GET: ", result);
     return Response.json(result);
   } catch (e: any) {
     return Response.json({ error: e.message });
