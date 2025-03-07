@@ -21,7 +21,6 @@ export default function SignIn() {
       .then(async (res) => {
         if (res.user) {
           // API call to get user data
-          console.log("email: ", email);
           const result = await axios.get(
             process.env.EXPO_PUBLIC_HOST_URL + "/user?email=" + email
           );
