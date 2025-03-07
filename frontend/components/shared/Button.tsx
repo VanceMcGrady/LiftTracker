@@ -1,4 +1,4 @@
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import React, { Component } from "react";
 import Colors from "@/colors/Colors";
 
@@ -7,7 +7,12 @@ type ButtonProps = {
   onPress: () => void;
   loading?: boolean;
 };
-export default function Button({ text, onPress, loading }: ButtonProps) {
+export default function Button({
+  text,
+  onPress,
+  loading = false,
+}: ButtonProps) {
+  console.log("loading: ", loading);
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -19,7 +24,7 @@ export default function Button({ text, onPress, loading }: ButtonProps) {
       }}
     >
       {loading ? (
-        <ActivityIndicator size="large"></ActivityIndicator>
+        <ActivityIndicator color={Colors.WHITE}></ActivityIndicator>
       ) : (
         <Text
           style={{ color: Colors.WHITE, textAlign: "center", fontSize: 18 }}

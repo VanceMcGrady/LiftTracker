@@ -16,7 +16,9 @@ export default function SignIn() {
       alert("Please fill all the fields");
       return;
     }
+
     setLoading(true);
+
     signInWithEmailAndPassword(auth, email, password)
       .then(async (res) => {
         if (res.user) {
@@ -24,7 +26,7 @@ export default function SignIn() {
           const result = await axios.get(
             process.env.EXPO_PUBLIC_HOST_URL + "/user?email=" + email
           );
-          console.log("result: ", result.data);
+          //console.log("result: ", result.data);
           if (result.data.error) {
             alert("Error in fetching user data");
             return;
@@ -33,13 +35,14 @@ export default function SignIn() {
           // Save to Context to share across the app
 
           // route to week-view
+          setLoading(false);
           router.push("/week-view");
         }
       })
       .catch((error) => {
         alert(`error in signin: ${error.message}`);
+        setLoading(false);
       });
-    setLoading(false);
   };
   return (
     <View>
