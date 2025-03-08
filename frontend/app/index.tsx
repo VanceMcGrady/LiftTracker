@@ -11,7 +11,7 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (userData) => {
+    onAuthStateChanged(auth, async (userData) => {
       if (userData && userData.email) {
         const result = await axios.get(
           process.env.EXPO_PUBLIC_HOST_URL + "/user?email=" + userData.email
@@ -24,9 +24,7 @@ export default function Index() {
         setLoading(false);
       }
     });
-
-    return () => unsubscribe();
-  }, [setUser]);
+  }, []);
 
   if (loading) {
     return <Text>Loading...</Text>;
