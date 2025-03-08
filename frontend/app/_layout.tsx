@@ -1,25 +1,30 @@
 import { Stack } from "expo-router";
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { WorkoutProvider } from "@/context/RoutineContext";
-
-import { Suspense } from "react";
+import { AuthProvider } from "@/context/AuthContext";
+import { Suspense, useState } from "react";
 import { ActivityIndicator } from "react-native";
+import { RoutineProvider } from "@/context/RoutineContext";
 
+interface USER {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
 export default function RootLayout() {
+  const [user, setUser] = useState<USER | undefined>(undefined);
   return (
     <Suspense fallback={<ActivityIndicator />}>
       <View style={styles.container}>
         <Header />
         <View style={styles.content}>
-          <WorkoutProvider>
-            <Stack
-              screenOptions={{
-                headerShown: false, // Disable the default header
-              }}
-            />
-          </WorkoutProvider>
+          <AuthProvider>
+            <RoutineProvider>
+              <Stack />
+            </RoutineProvider>
+          </AuthProvider>
         </View>
         <Footer />
       </View>

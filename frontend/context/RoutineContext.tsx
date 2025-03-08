@@ -162,10 +162,10 @@ const mockWorkoutSchedule: any = {
     },
   ],
 };
-export const WorkoutContext = createContext({});
+export const RoutineContext = createContext({});
 
-export function WorkoutProvider({ children }: any) {
-  const [schedule, setSchedule] = useState([]);
+export function RoutineProvider({ children }: any) {
+  const [routine, setRoutine] = useState([]);
 
   useEffect(() => {
     // setSchedule() to the value of the schedule retreived from the backend
@@ -182,16 +182,16 @@ export function WorkoutProvider({ children }: any) {
     //   console.log(error);
     // }
 
-    setSchedule(mockWorkoutSchedule.workouts);
+    setRoutine(mockWorkoutSchedule.workouts);
   }, []);
 
   // Value to be shared
   const value = {
-    schedule,
-    setSchedule,
+    routine,
+    setRoutine,
   };
-
+  console.log("routine in RoutineProvider: ", routine);
   return (
-    <WorkoutContext.Provider value={value}>{children}</WorkoutContext.Provider>
+    <RoutineContext.Provider value={value}>{children}</RoutineContext.Provider>
   );
 }

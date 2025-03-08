@@ -6,11 +6,15 @@ import { router } from "expo-router";
 import TextInputField from "@/components/shared/TextInputField";
 import Button from "@/components/shared/Button";
 import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function SignIn() {
   const [email, setEmail] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
+  const { user, setUser } = useContext(AuthContext) as any;
+
   const onSignInBtnClick = () => {
     if (!email || !password) {
       alert("Please fill all the fields");
@@ -26,13 +30,10 @@ export default function SignIn() {
           const result = await axios.get(
             process.env.EXPO_PUBLIC_HOST_URL + "/user?email=" + email
           );
-          //console.log("result: ", result.data);
-          if (result.data.error) {
-            alert("Error in fetching user data");
-            return;
-          }
 
+          //console.log("result: ", result.data);
           // Save to Context to share across the app
+          setUser(result.data);
 
           // route to week-view
           setLoading(false);

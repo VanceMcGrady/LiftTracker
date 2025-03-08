@@ -15,6 +15,8 @@ import Colors from "@/colors/Colors";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 import { router } from "expo-router";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -23,6 +25,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const { user, setUser } = useContext(AuthContext) as any;
 
   const onButtonPress = () => {
     if (!email || !password || !firstName || !lastName) {
@@ -47,6 +50,7 @@ export default function SignUp() {
           alert("Error in creating user");
           return;
         }
+        setUser(result.data);
         router.push("/week-view");
       })
       .catch((error) => {
