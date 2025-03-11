@@ -1,11 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import ExerciseSummaryCard from "./ExerciseSumaryCard";
 
 // Types for the component props
 interface Exercise {
+  id: string;
   name: string;
   sets?: number;
   reps?: number;
+  weight?: number | string;
+  rest?: number;
 }
 
 interface WorkoutInfo {
@@ -90,7 +94,18 @@ const WorkoutSummaryCard: React.FC<WorkoutSummaryCardProps> = ({
           <View style={styles.exercisesContainer}>
             <Text style={styles.detailLabel}>Exercises</Text>
             <Text style={styles.exercisesText}>
-              {formatExercisesList(workout.exercises)}
+              {workout.exercises.map((ex, idx) => {
+                console.log("ex", ex);
+                return (
+                  <ExerciseSummaryCard
+                    key={ex.id}
+                    exerciseName={ex.name}
+                    sets={ex.sets}
+                    reps={ex.reps}
+                    weight={ex.weight}
+                  />
+                );
+              })}
             </Text>
           </View>
         </View>
