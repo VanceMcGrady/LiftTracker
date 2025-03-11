@@ -16,7 +16,7 @@ function HomeView(props: any) {
   const [currentDay, setCurrentDay] = useState(
     new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(Date.now())
   );
-  console.log("HomeView currentDay: ", currentDay);
+
   const [currentWorkout, setCurrentWorkout] = useState(
     weekSchedule.find((day: any) => day.dayOfWeek === currentDay)
   );
