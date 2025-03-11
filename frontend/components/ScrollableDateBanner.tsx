@@ -7,14 +7,17 @@ import {
   TouchableOpacity,
   ScrollViewProps,
 } from "react-native";
+import { getDayOfWeek } from "@/utils/dateUtils";
 
 interface DateBannerProps {
-  onDateSelect?: (date: Date) => void;
+  onDateSelect?: (day: string) => void;
   initialDate?: Date;
   startWeekOnMonday?: boolean;
+  currentDay?: string;
 }
 
 const DateBanner: React.FC<DateBannerProps> = ({
+  currentDay,
   onDateSelect,
   initialDate = new Date(),
   startWeekOnMonday = false,
@@ -106,9 +109,11 @@ const DateBanner: React.FC<DateBannerProps> = ({
 
   // Handle date selection
   const handleDateSelect = (date: Date): void => {
+    const day = getDayOfWeek(date);
+    console.log("Selected day: ", day);
     setSelectedDate(date);
     if (onDateSelect) {
-      onDateSelect(date);
+      onDateSelect(day);
     }
   };
 

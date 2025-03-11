@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 import DayCard from "./DayCard"; // Ensure this path is correct
 import { Link } from "expo-router";
@@ -6,6 +6,7 @@ import { RoutineContext } from "@/context/RoutineContext";
 import ScrollableDateBanner from "./ScrollableDateBanner";
 import Workout from "@/app/workout/[day]";
 import WorkoutSummaryCard from "./WorkoutSummaryCard";
+import { date } from "drizzle-orm/mysql-core";
 
 function HomeView(props: any) {
   const { routine, setRoutine } = useContext(RoutineContext) as any;
@@ -15,9 +16,18 @@ function HomeView(props: any) {
   const [currentDay, setCurrentDay] = useState(
     new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(Date.now())
   );
+  console.log("HomeView currentDay: ", currentDay);
   const [currentWorkout, setCurrentWorkout] = useState(
     weekSchedule.find((day: any) => day.dayOfWeek === currentDay)
   );
+
+  // Add effect to update currentWorkout when currentDay changes
+  useEffect(() => {
+    const workout = weekSchedule.find(
+      (day: any) => day.dayOfWeek === currentDay
+    );
+    setCurrentWorkout(workout);
+  }, [currentDay, weekSchedule]);
 
   if (!weekSchedule.length) {
     return (
@@ -38,7 +48,10 @@ function HomeView(props: any) {
           paddingHorizontal: 10,
         }}
       >
-        <ScrollableDateBanner />
+        <ScrollableDateBanner
+          currentDay={currentDay}
+          onDateSelect={(date) => setCurrentDay(date)}
+        />
         <WorkoutSummaryCard
           day={currentDay}
           restDay={false}

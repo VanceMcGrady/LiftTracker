@@ -29,7 +29,7 @@ const WorkoutSummaryCard: React.FC<WorkoutSummaryCardProps> = ({
   restDay,
   onPress,
 }) => {
-  console.log("workout in WorkoutSummaryCard", workout);
+  console.log("WorkoutSummaryCard day: ", day);
   // Format exercises list to a readable string
   const formatExercisesList = (exercises: Exercise[]): string => {
     if (exercises.length <= 3) {
