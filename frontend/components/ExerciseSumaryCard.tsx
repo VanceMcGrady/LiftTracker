@@ -20,7 +20,7 @@ const ExerciseSummaryCard: React.FC<ExerciseSummaryCardProps> = ({
 }) => {
   // Format the weight for display
   const formattedWeight = typeof weight === "number" ? `${weight} kg` : weight;
-  console.log("exerciseName", exerciseName);
+
   // Format rest time into a readable format
   const formatRestTime = (seconds?: number): string => {
     if (!seconds) return "—";

@@ -36,7 +36,7 @@ const WorkoutSummaryCard: React.FC<WorkoutSummaryCardProps> = ({
   const formatExercisesList = (exercises: Exercise[]): string => {
     return exercises.map((ex) => ex.name).join(", ");
   };
-  console.log("workout", workout);
+
   // Format muscle groups to a readable string
   const formatMuscleGroups = (groups: string[]): string => {
     return groups.join(" | ");
@@ -95,7 +95,6 @@ const WorkoutSummaryCard: React.FC<WorkoutSummaryCardProps> = ({
             <Text style={styles.detailLabel}>Exercises</Text>
             <Text style={styles.exercisesText}>
               {workout.exercises.map((ex, idx) => {
-                console.log("ex", ex);
                 return (
                   <ExerciseSummaryCard
                     key={ex.id}

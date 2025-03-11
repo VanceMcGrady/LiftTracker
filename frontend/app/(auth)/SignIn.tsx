@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "@/configs/FirebaseConfig";
 import { router } from "expo-router";
