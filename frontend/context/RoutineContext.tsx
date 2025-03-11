@@ -7,6 +7,8 @@ const mockWorkoutSchedule: any = {
       id: "1",
       name: "Strength Training",
       dayOfWeek: "Monday",
+      duration: 40,
+      targetMuscleGroups: ["Legs", "Chest", "Back", "Shoulders"],
       exercises: [
         {
           id: "1-1",
@@ -46,6 +48,8 @@ const mockWorkoutSchedule: any = {
       id: "2",
       name: "Cardio and Core",
       dayOfWeek: "Tuesday",
+      duration: 40,
+      targetMuscleGroups: ["Legs", "Chest", "Back", "Shoulders"],
       exercises: [
         { id: "2-1", name: "Running", sets: 1, reps: 1, weight: 0, rest: 0 },
         { id: "2-2", name: "Plank", sets: 3, reps: 1, weight: 0, rest: 60 },
@@ -71,6 +75,8 @@ const mockWorkoutSchedule: any = {
       id: "3",
       name: "Upper Body & Conditioning",
       dayOfWeek: "Wednesday",
+      duration: 40,
+      targetMuscleGroups: ["Legs", "Chest", "Back", "Shoulders"],
       exercises: [
         { id: "3-1", name: "Pull-Ups", sets: 3, reps: 8, weight: 0, rest: 90 },
         { id: "3-2", name: "Push-Ups", sets: 4, reps: 15, weight: 0, rest: 60 },
@@ -85,11 +91,20 @@ const mockWorkoutSchedule: any = {
         { id: "3-4", name: "Burpees", sets: 3, reps: 10, weight: 0, rest: 90 },
       ],
     },
-    { id: "4", name: "Rest Day", dayOfWeek: "Thursday", exercises: [] },
+    {
+      id: "4",
+      name: "Rest Day",
+      dayOfWeek: "Thursday",
+      duration: 40,
+      targetMuscleGroups: ["Legs", "Chest", "Back", "Shoulders"],
+      exercises: [],
+    },
     {
       id: "5",
       name: "Lower Body & Flexibility",
       dayOfWeek: "Friday",
+      duration: 40,
+      targetMuscleGroups: ["Legs", "Chest", "Back", "Shoulders"],
       exercises: [
         { id: "5-1", name: "Lunges", sets: 3, reps: 12, weight: 20, rest: 60 },
         {
@@ -122,6 +137,8 @@ const mockWorkoutSchedule: any = {
       id: "6",
       name: "Active Recovery",
       dayOfWeek: "Saturday",
+      duration: 40,
+      targetMuscleGroups: ["Legs", "Chest", "Back", "Shoulders"],
       exercises: [
         { id: "6-1", name: "Yoga", sets: 1, reps: 1, weight: 0, rest: 0 },
         {
@@ -139,6 +156,8 @@ const mockWorkoutSchedule: any = {
       id: "7",
       name: "Full Body",
       dayOfWeek: "Sunday",
+      duration: 40,
+      targetMuscleGroups: ["Legs", "Chest", "Back", "Shoulders"],
       exercises: [
         {
           id: "7-1",

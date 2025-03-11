@@ -6,14 +6,13 @@ interface Exercise {
   name: string;
   sets?: number;
   reps?: number;
-  duration?: number; // in minutes
 }
 
 interface WorkoutInfo {
   title: string;
-  muscleGroups: string[];
+  targetMuscleGroups: string[];
   exercises: Exercise[];
-  totalDuration: number; // in minutes
+  duration: number; // in minutes
 }
 
 interface WorkoutSummaryCardProps {
@@ -31,24 +30,13 @@ const WorkoutSummaryCard: React.FC<WorkoutSummaryCardProps> = ({
 }) => {
   // Format exercises list to a readable string
   const formatExercisesList = (exercises: Exercise[]): string => {
-    if (exercises.length <= 3) {
-      return exercises.map((ex) => ex.name).join(", ");
-    } else {
-      // Show first two exercises and count
-      return `${exercises[0].name}, ${exercises[1].name} +${
-        exercises.length - 2
-      } more`;
-    }
+    return exercises.map((ex) => ex.name).join(", ");
   };
-
+  console.log("workout", workout);
   // Format muscle groups to a readable string
-  // const formatMuscleGroups = (groups: string[]): string => {
-  //   if (groups.length <= 2) {
-  //     return groups.join(" & ");
-  //   } else {
-  //     return `${groups[0]}, ${groups[1]} & ${groups.length - 2} more`;
-  //   }
-  // };
+  const formatMuscleGroups = (groups: string[]): string => {
+    return groups.join(" | ");
+  };
 
   // Format duration to a readable format
   const formatDuration = (minutes: number): string => {
@@ -81,20 +69,20 @@ const WorkoutSummaryCard: React.FC<WorkoutSummaryCardProps> = ({
       ) : workout ? (
         // Workout content
         <View style={styles.workoutContent}>
-          <Text style={styles.workoutTitle}>{workout.title && "test"}</Text>
+          <Text style={styles.workoutTitle}>{workout.title}</Text>
 
           <View style={styles.detailRow}>
             <View style={styles.detailItem}>
               <Text style={styles.detailLabel}>Target</Text>
               <Text style={styles.detailText}>
-                {/* {formatMuscleGroups(workout.muscleGroups)} */}Test
+                {formatMuscleGroups(workout.targetMuscleGroups)}
               </Text>
             </View>
 
             <View style={styles.detailItem}>
               <Text style={styles.detailLabel}>Duration</Text>
               <Text style={styles.detailText}>
-                {formatDuration(workout.totalDuration)}
+                {formatDuration(workout.duration)}
               </Text>
             </View>
           </View>
