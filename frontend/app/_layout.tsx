@@ -18,7 +18,6 @@ export default function RootLayout() {
   return (
     <Suspense fallback={<ActivityIndicator />}>
       <View style={styles.container}>
-        <Header />
         <View style={styles.content}>
           <AuthProvider>
             <RoutineProvider>

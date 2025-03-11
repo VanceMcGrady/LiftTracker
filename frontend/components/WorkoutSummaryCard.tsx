@@ -29,6 +29,7 @@ const WorkoutSummaryCard: React.FC<WorkoutSummaryCardProps> = ({
   restDay,
   onPress,
 }) => {
+  console.log("workout in WorkoutSummaryCard", workout);
   // Format exercises list to a readable string
   const formatExercisesList = (exercises: Exercise[]): string => {
     if (exercises.length <= 3) {
@@ -81,13 +82,13 @@ const WorkoutSummaryCard: React.FC<WorkoutSummaryCardProps> = ({
       ) : workout ? (
         // Workout content
         <View style={styles.workoutContent}>
-          <Text style={styles.workoutTitle}>{workout.title}</Text>
+          <Text style={styles.workoutTitle}>{workout.title && "test"}</Text>
 
           <View style={styles.detailRow}>
             <View style={styles.detailItem}>
               <Text style={styles.detailLabel}>Target</Text>
               <Text style={styles.detailText}>
-                {/* {formatMuscleGroups(workout.muscleGroups)} */}
+                {/* {formatMuscleGroups(workout.muscleGroups)} */}Test
               </Text>
             </View>
 
@@ -131,6 +132,7 @@ const styles = StyleSheet.create({
   },
   workoutCard: {
     backgroundColor: "#ffffff",
+    height: "100%",
   },
   restDayCard: {
     backgroundColor: "#f8f9fa",
@@ -149,6 +151,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
     marginBottom: 12,
+    justifyContent: "center",
+    alignItems: "center",
   },
   detailRow: {
     flexDirection: "row",

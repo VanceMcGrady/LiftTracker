@@ -28,23 +28,24 @@ function HomeView(props: any) {
   }
 
   return (
-    <View
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        gap: 10,
-        paddingHorizontal: 10,
-      }}
-    >
-      <ScrollableDateBanner />
-
-      <WorkoutSummaryCard
-        day={currentDay}
-        restDay={false}
-        workout={currentWorkout}
-      />
-    </View>
+    <ScrollView style={{ flex: 1, paddingTop: 55 }}>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          gap: 10,
+          paddingHorizontal: 10,
+        }}
+      >
+        <ScrollableDateBanner />
+        <WorkoutSummaryCard
+          day={currentDay}
+          restDay={false}
+          workout={currentWorkout}
+        />
+      </View>
+    </ScrollView>
   );
 }
 
