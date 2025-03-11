@@ -162,9 +162,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#f5f5f5",
     maxHeight: 75,
+    paddingVertical: 10,
   },
   scrollContent: {
     paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   dateItem: {
     width: 60,

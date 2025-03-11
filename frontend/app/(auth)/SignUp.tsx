@@ -51,7 +51,7 @@ export default function SignUp() {
           return;
         }
         setUser(result.data);
-        router.push("/week-view");
+        router.push("/home-view");
       })
       .catch((error) => {
         alert(`error in signup: ${error.message}`);

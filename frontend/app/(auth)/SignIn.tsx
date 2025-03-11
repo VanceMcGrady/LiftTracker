@@ -35,9 +35,9 @@ export default function SignIn() {
           // Save to Context to share across the app
           setUser(result.data);
 
-          // route to week-view
+          // route to home-view
           setLoading(false);
-          router.push("/week-view");
+          router.push("/home-view");
         }
       })
       .catch((error) => {

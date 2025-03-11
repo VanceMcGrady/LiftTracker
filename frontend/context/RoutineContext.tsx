@@ -190,7 +190,7 @@ export function RoutineProvider({ children }: any) {
     routine,
     setRoutine,
   };
-  console.log("routine in RoutineProvider: ", routine);
+
   return (
     <RoutineContext.Provider value={value}>{children}</RoutineContext.Provider>
   );

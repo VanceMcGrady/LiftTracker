@@ -4,13 +4,21 @@ import DayCard from "./DayCard"; // Ensure this path is correct
 import { Link } from "expo-router";
 import { RoutineContext } from "@/context/RoutineContext";
 import ScrollableDateBanner from "./ScrollableDateBanner";
+import Workout from "@/app/workout/[day]";
+import WorkoutSummaryCard from "./WorkoutSummaryCard";
 
-function WeekView(props: any) {
+function HomeView(props: any) {
   const { routine, setRoutine } = useContext(RoutineContext) as any;
 
   const [weekSchedule, setWeekSchedule] = useState(routine || ["hello"]);
 
-  console.log("schedule in WeekView: ", routine);
+  const [currentDay, setCurrentDay] = useState(
+    new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(Date.now())
+  );
+  const [currentWorkout, setCurrentWorkout] = useState(
+    weekSchedule.find((day: any) => day.dayOfWeek === currentDay)
+  );
+
   if (!weekSchedule.length) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -20,7 +28,7 @@ function WeekView(props: any) {
   }
 
   return (
-    <ScrollView
+    <View
       style={{
         justifyContent: "center",
         alignItems: "center",
@@ -30,18 +38,14 @@ function WeekView(props: any) {
       }}
     >
       <ScrollableDateBanner />
-      {weekSchedule.map((routine: any) => (
-        <Link
-          href={{
-            pathname: `./workout/${routine.dayOfWeek}`,
-          }}
-          key={routine.id}
-        >
-          <DayCard key={routine.id} routine={routine} />
-        </Link>
-      ))}
-    </ScrollView>
+
+      <WorkoutSummaryCard
+        day={currentDay}
+        restDay={false}
+        workout={currentWorkout}
+      />
+    </View>
   );
 }
 
-export default WeekView;
+export default HomeView;

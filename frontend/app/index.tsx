@@ -18,7 +18,7 @@ export default function Index() {
         );
         console.log("User is signed in");
         setUser(result.data);
-        router.push("/week-view");
+        router.push("/home-view");
       } else {
         console.log("User is signed out");
         setLoading(false);

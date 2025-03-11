@@ -22,7 +22,7 @@ export default function RootLayout() {
         <View style={styles.content}>
           <AuthProvider>
             <RoutineProvider>
-              <Stack />
+              <Stack screenOptions={{ headerShown: false }} />
             </RoutineProvider>
           </AuthProvider>
         </View>
