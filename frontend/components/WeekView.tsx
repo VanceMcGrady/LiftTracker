@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import DayCard from "./DayCard"; // Ensure this path is correct
 import { Link } from "expo-router";
 import { RoutineContext } from "@/context/RoutineContext";
+import ScrollableDateBanner from "./ScrollableDateBanner";
 
 function WeekView(props: any) {
   const { routine, setRoutine } = useContext(RoutineContext) as any;
@@ -19,9 +20,8 @@ function WeekView(props: any) {
   }
 
   return (
-    <View
+    <ScrollView
       style={{
-        flex: 1,
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
@@ -29,6 +29,7 @@ function WeekView(props: any) {
         paddingHorizontal: 10,
       }}
     >
+      <ScrollableDateBanner />
       {weekSchedule.map((routine: any) => (
         <Link
           href={{
@@ -39,7 +40,7 @@ function WeekView(props: any) {
           <DayCard key={routine.id} routine={routine} />
         </Link>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
