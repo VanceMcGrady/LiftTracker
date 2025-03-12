@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import ExerciseSummaryCard from "./ExerciseSumaryCard";
-
+import Button from "./shared/Button";
+import { router } from "expo-router";
 // Types for the component props
 interface Exercise {
   id: string;
@@ -92,6 +93,10 @@ const WorkoutSummaryCard: React.FC<WorkoutSummaryCardProps> = ({
           </View>
 
           <View style={styles.exercisesContainer}>
+            <Button
+              text="Start Workout"
+              onPress={() => router.push(`/workout/${day}`)}
+            />
             <Text style={styles.detailLabel}>Exercises</Text>
             <Text style={styles.exercisesText}>
               {workout.exercises.map((ex, idx) => {
