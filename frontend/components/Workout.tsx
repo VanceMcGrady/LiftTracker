@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { WorkoutContext } from "@/context/WorkoutContext";
 import { useContext, useState } from "react";
 import { index } from "drizzle-orm/mysql-core";
-
+import Set from "./Set";
 function Workout(passedsWorkout: any) {
   const { workout, updateWorkout } = useContext(WorkoutContext) as any;
   const { thisWorkout } = passedsWorkout;
@@ -24,11 +24,13 @@ function Workout(passedsWorkout: any) {
     <View>
       <Text>{workout.dayOfWeek}</Text>
       {Array.from({ length: exercise.sets }, (_, i) => (
-        <View key={i}>
-          <Text>Set {i + 1}</Text>
-          <Text>Reps: {exercise.reps}</Text>
-          <Text>Weight: {exercise.weight}</Text>
-        </View>
+        <Set
+          weight={exercise.weight}
+          reps={exercise.reps}
+          onComplete={() => {
+            console.log("complete");
+          }}
+        />
       ))}
     </View>
   );
