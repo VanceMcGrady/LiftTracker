@@ -11,7 +11,7 @@ export default function WorkoutView() {
   const { routine } = useContext(RoutineContext) as any;
 
   const workout = routine.find((routine: any) => routine.dayOfWeek === day);
-  console.log("workout in index: ", workout);
+  //console.log("workout in index: ", workout);
   return (
     <WorkoutProvider>
       <Workout thisWorkout={workout} />
