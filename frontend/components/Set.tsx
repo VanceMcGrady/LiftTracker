@@ -25,7 +25,7 @@ const Set: React.FC<SetProps> = ({
         <View style={styles.divider} />
 
         <View style={styles.metricContainer}>
-          <Text style={styles.metricValue}>{weight}</Text>
+          <Text style={styles.metricValue}>{weight || 0}</Text>
           <Text style={styles.metricLabel}>lbs</Text>
         </View>
       </View>

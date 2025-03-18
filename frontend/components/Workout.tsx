@@ -22,7 +22,7 @@ function Workout(passedsWorkout: any) {
   console.log("exercise in Workout component: ", exercise);
   return (
     <View>
-      <Text>{workout.dayOfWeek}</Text>
+      <Text>{exercise.name}</Text>
       {Array.from({ length: exercise.sets }, (_, i) => (
         <Set
           weight={exercise.weight}
