@@ -1,13 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, Text, FlatList, Dimensions, StyleSheet } from "react-native";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { WorkoutContext } from "@/context/WorkoutContext";
 import { useContext } from "react";
 import Set from "./Set";
-
+import Button from "./shared/Button";
 const { width } = Dimensions.get("window");
 
 function Workout(passedsWorkout: any) {
-  const { workout, updateWorkout, completeSet } = useContext(
+  const { workout, updateWorkout, completeSet, completeExercise } = useContext(
     WorkoutContext
   ) as any;
   const { thisWorkout } = passedsWorkout;
@@ -17,17 +24,58 @@ function Workout(passedsWorkout: any) {
   // Update workout when props change
   useEffect(() => {
     updateWorkout(thisWorkout);
+    // console.log("Workout component mounted");
   }, []);
 
-  // Handle viewable items change to track current exercise
-  const onViewableItemsChanged = useRef(({ viewableItems }: any) => {
-    if (viewableItems.length > 0) {
-      setExerciseIndex(viewableItems[0].index);
+  // Log updated exerciseIndex whenever it actually changes
+  // useEffect(() => {
+  //   // console.log("Updated exerciseIndex state:", exerciseIndex);
+  //   if (workout.exercises) {
+  //     console.log(
+  //       "workout.exercises[exerciseIndex]: ",
+  //       workout.exercises[exerciseIndex]
+  //     );
+  //   }
+  // }, [exerciseIndex]);
+
+  // Define the callback outside of useRef for better debugging
+  const handleViewableItemsChanged = useCallback(({ viewableItems }: any) => {
+    // console.log("Viewable items changed:", viewableItems);
+
+    if (viewableItems && viewableItems.length > 0) {
+      const newIndex = viewableItems[0].index;
+      // console.log("Setting new index to:", newIndex);
+      setExerciseIndex(newIndex);
     }
+  }, []);
+
+  // Create viewability config
+  const viewabilityConfig = useRef({
+    itemVisiblePercentThreshold: 50,
+    minimumViewTime: 0,
   }).current;
 
-  const viewabilityConfig = {
-    itemVisiblePercentThreshold: 50,
+  // Create a callback pair for the FlatList
+  const viewabilityConfigCallbackPairs = useRef([
+    { viewabilityConfig, onViewableItemsChanged: handleViewableItemsChanged },
+  ]).current;
+
+  // Manual navigation functions to test state updates
+  const goToNextExercise = () => {
+    if (workout.exercises && exerciseIndex < workout.exercises.length - 1) {
+      //console.log("going to next exercise");
+      const newIndex = exerciseIndex + 1;
+      setExerciseIndex(newIndex);
+      flatListRef.current?.scrollToIndex({ index: newIndex, animated: true });
+    }
+  };
+
+  const goToPrevExercise = () => {
+    if (workout.exercises && exerciseIndex > 0) {
+      const newIndex = exerciseIndex - 1;
+      setExerciseIndex(newIndex);
+      flatListRef.current?.scrollToIndex({ index: newIndex, animated: true });
+    }
   };
 
   // Render pagination indicators
@@ -50,7 +98,7 @@ function Workout(passedsWorkout: any) {
   };
 
   // Render a single exercise card
-  const renderExercise = ({ item: exercise }: any) => {
+  const renderExercise = ({ item: exercise, index }: any) => {
     return (
       <View style={styles.exerciseCard}>
         <Text style={styles.exerciseName}>{exercise.name}</Text>
@@ -65,9 +113,27 @@ function Workout(passedsWorkout: any) {
             />
           ))}
         </View>
+        <Button
+          text={
+            workout.exercises[exerciseIndex].completed
+              ? "Done"
+              : "Complete Exercise"
+          }
+          onPress={() => {
+            completeExercise(exercise.id);
+            goToNextExercise();
+          }}
+        />
       </View>
     );
   };
+
+  // Get initial layout for initialization
+  const getItemLayout = (_: any, index: number) => ({
+    length: width,
+    offset: width * index,
+    index,
+  });
 
   return (
     <View style={styles.container}>
@@ -80,11 +146,35 @@ function Workout(passedsWorkout: any) {
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
-            onViewableItemsChanged={onViewableItemsChanged}
-            viewabilityConfig={viewabilityConfig}
+            viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs}
+            getItemLayout={getItemLayout}
+            initialNumToRender={1}
             keyExtractor={(item, index) => `exercise-${index}`}
           />
           {renderPaginationDots()}
+
+          {/* Manual navigation controls for testing */}
+          <View style={styles.navigationControls}>
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={goToPrevExercise}
+              disabled={exerciseIndex === 0}
+            >
+              <Text style={styles.navButtonText}>Previous</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.indexDisplay}>
+              {exerciseIndex + 1} / {workout.exercises.length}
+            </Text>
+
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={goToNextExercise}
+              disabled={exerciseIndex === workout.exercises.length - 1}
+            >
+              <Text style={styles.navButtonText}>Next</Text>
+            </TouchableOpacity>
+          </View>
         </>
       ) : (
         <Text>Loading workout...</Text>
@@ -124,6 +214,25 @@ const styles = StyleSheet.create({
   },
   activeDot: {
     backgroundColor: "#007AFF",
+  },
+  navigationControls: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    alignItems: "center",
+  },
+  navButton: {
+    padding: 10,
+    backgroundColor: "#007AFF",
+    borderRadius: 5,
+  },
+  navButtonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  indexDisplay: {
+    fontSize: 16,
   },
 });
 

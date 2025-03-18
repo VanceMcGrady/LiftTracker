@@ -12,7 +12,7 @@ export default function Button({
   onPress,
   loading = false,
 }: ButtonProps) {
-  console.log("loading: ", loading);
+  //console.log("loading: ", loading);
   return (
     <TouchableOpacity
       onPress={onPress}

@@ -25,8 +25,8 @@ export const WorkoutProvider = ({ children }: any) => {
   };
 
   const completeSet = (exerciseId: any, setId: any) => {
-    console.log("exerciseId: ", exerciseId);
-    console.log("setId: ", setId);
+    // console.log("exerciseId: ", exerciseId);
+    // console.log("setId: ", setId);
 
     setWorkout((prevWorkout: any) => ({
       ...prevWorkout,
