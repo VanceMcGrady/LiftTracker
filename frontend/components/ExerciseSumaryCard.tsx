@@ -3,7 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 interface ExerciseSummaryCardProps {
   exerciseName: string;
-  sets: number | undefined;
+  sets:
+    | [{ id: number; complete: boolean; reps: number; weight: number }]
+    | undefined;
   reps: number | undefined;
   weight: number | string | undefined; // Can be a number or '—' for bodyweight
   restTime?: number; // Optional rest time in seconds
@@ -42,7 +44,7 @@ const ExerciseSummaryCard: React.FC<ExerciseSummaryCardProps> = ({
       <View style={styles.detailsContainer}>
         <View style={styles.setsContainer}>
           <Text style={styles.setsLabel}>SETS</Text>
-          <Text style={styles.setsValue}>{sets}</Text>
+          <Text style={styles.setsValue}>{sets?.length}</Text>
         </View>
         <View style={styles.detailItem}>
           <Text style={styles.detailLabel}>REPS</Text>

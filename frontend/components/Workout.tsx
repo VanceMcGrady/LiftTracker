@@ -17,7 +17,7 @@ function Workout(passedsWorkout: any) {
   // Update workout when props change
   useEffect(() => {
     updateWorkout(thisWorkout);
-  }, [passedsWorkout]);
+  }, []);
 
   // Handle viewable items change to track current exercise
   const onViewableItemsChanged = useRef(({ viewableItems }: any) => {
@@ -55,12 +55,13 @@ function Workout(passedsWorkout: any) {
       <View style={styles.exerciseCard}>
         <Text style={styles.exerciseName}>{exercise.name}</Text>
         <View style={styles.setsContainer}>
-          {Array.from({ length: exercise.sets }, (_, i) => (
+          {exercise.sets.map((set: any, i: number) => (
             <Set
               key={i}
-              weight={exercise.weight}
-              reps={exercise.reps}
-              onComplete={completeSet(exercise.id, i)}
+              completed={set.completed}
+              weight={set.weight}
+              reps={set.reps}
+              onComplete={() => completeSet(exercise.id, set.id)}
             />
           ))}
         </View>
