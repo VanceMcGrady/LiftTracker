@@ -109,7 +109,7 @@ function Workout(passedsWorkout: any) {
               completed={set.completed}
               weight={set.weight}
               reps={set.reps}
-              onComplete={() => completeSet(exercise.id, set.id)}
+              onComplete={() => completeSet(exercise.id, set.id, set.completed)}
             />
           ))}
         </View>
@@ -120,8 +120,10 @@ function Workout(passedsWorkout: any) {
               : "Complete Exercise"
           }
           onPress={() => {
-            completeExercise(exercise.id);
-            goToNextExercise();
+            completeExercise(exercise.id, exercise.completed);
+            if (!exercise.completed) {
+              goToNextExercise();
+            }
           }}
         />
       </View>

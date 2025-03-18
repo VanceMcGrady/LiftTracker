@@ -11,20 +11,20 @@ export const WorkoutProvider = ({ children }: any) => {
   const updateWorkout = (newWorkoutData: any) => {
     setWorkout(newWorkoutData);
   };
-  const completeExercise = (exerciseId: any) => {
+  const completeExercise = (exerciseId: any, undoComplete = false) => {
     console.log("exerciseId: ", exerciseId);
     setWorkout((prevWorkout: any) => ({
       ...prevWorkout,
       exercises: prevWorkout.exercises.map((ex: any) => {
         if (ex.id === exerciseId) {
-          return { ...ex, completed: true };
+          return { ...ex, completed: undoComplete ? false : true };
         }
         return ex;
       }),
     }));
   };
 
-  const completeSet = (exerciseId: any, setId: any) => {
+  const completeSet = (exerciseId: any, setId: any, undoComplete = false) => {
     // console.log("exerciseId: ", exerciseId);
     // console.log("setId: ", setId);
 
@@ -36,7 +36,7 @@ export const WorkoutProvider = ({ children }: any) => {
             ...ex,
             sets: ex.sets.map((set: any) => {
               if (set.id === setId) {
-                return { ...set, completed: true };
+                return { ...set, completed: undoComplete ? false : true };
               }
               return set;
             }),
