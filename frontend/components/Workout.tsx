@@ -7,7 +7,9 @@ import Set from "./Set";
 const { width } = Dimensions.get("window");
 
 function Workout(passedsWorkout: any) {
-  const { workout, updateWorkout } = useContext(WorkoutContext) as any;
+  const { workout, updateWorkout, completeSet } = useContext(
+    WorkoutContext
+  ) as any;
   const { thisWorkout } = passedsWorkout;
   const [exerciseIndex, setExerciseIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
@@ -58,9 +60,7 @@ function Workout(passedsWorkout: any) {
               key={i}
               weight={exercise.weight}
               reps={exercise.reps}
-              onComplete={() => {
-                console.log("complete");
-              }}
+              onComplete={completeSet(exercise.id, i)}
             />
           ))}
         </View>

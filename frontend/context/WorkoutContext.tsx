@@ -11,7 +11,41 @@ export const WorkoutProvider = ({ children }: any) => {
   const updateWorkout = (newWorkoutData: any) => {
     setWorkout(newWorkoutData);
   };
+  const completeExercise = (exerciseId: any) => {
+    console.log("exerciseId: ", exerciseId);
+    setWorkout((prevWorkout: any) => ({
+      ...prevWorkout,
+      exercises: prevWorkout.exercises.map((ex: any) => {
+        if (ex.id === exerciseId) {
+          return { ...ex, completed: true };
+        }
+        return ex;
+      }),
+    }));
+  };
 
+  const completeSet = (exerciseId: any, setId: any) => {
+    console.log("exerciseId: ", exerciseId);
+    console.log("setId: ", setId);
+
+    setWorkout((prevWorkout: any) => ({
+      ...prevWorkout,
+      exercises: prevWorkout.exercises.map((ex: any) => {
+        if (ex.id === exerciseId) {
+          return {
+            ...ex,
+            sets: ex.sets.map((set: any) => {
+              if (set.id === setId) {
+                return { ...set, completed: true };
+              }
+              return set;
+            }),
+          };
+        }
+        return ex;
+      }),
+    }));
+  };
   // Function to update specific properties of the workout
   const updateWorkoutProperty = (property: any, value: any) => {
     setWorkout((prevWorkout) => ({
@@ -54,6 +88,8 @@ export const WorkoutProvider = ({ children }: any) => {
     addExercise,
     removeExercise,
     completeWorkout,
+    completeExercise,
+    completeSet,
   };
 
   return (
