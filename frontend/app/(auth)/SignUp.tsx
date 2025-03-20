@@ -1,22 +1,27 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import React, { useRef } from "react";
 import TextInputField from "@/components/shared/TextInputField";
 import Button from "@/components/shared/Button";
 import { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../configs/FirebaseConfig";
-import { upload } from "cloudinary-react-native";
-import { cld, options } from "@/configs/Cloudinary";
+
 import Entypo from "@expo/vector-icons/Entypo";
 import Colors from "@/colors/Colors";
-import * as ImagePicker from "expo-image-picker";
+
 import axios from "axios";
 import { router } from "expo-router";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -26,6 +31,12 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const { user, setUser } = useContext(AuthContext) as any;
+
+  // Create refs for each input field
+  const lastNameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
 
   const onButtonPress = () => {
     if (!email || !password || !firstName || !lastName) {
@@ -59,42 +70,84 @@ export default function SignUp() {
   };
 
   return (
-    <View style={{ paddingTop: 60, padding: 20 }}>
-      <Text style={{ fontSize: 20 }}>Create New Account</Text>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
+          paddingTop: 60,
+          padding: 20,
+          paddingBottom: 120, // Increased bottom padding
         }}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid={true}
+        enableAutomaticScroll={true}
+        extraScrollHeight={20}
       >
-        <Entypo
-          style={{ width: 160, position: "absolute", bottom: 0, right: 0 }}
-          name="camera"
-          size={24}
-          color={Colors.ORANGE}
-        />
-      </View>
+        <Text style={{ fontSize: 20 }}>Create New Account</Text>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Entypo
+            style={{ width: 160, position: "absolute", bottom: 0, right: 0 }}
+            name="camera"
+            size={24}
+            color={Colors.ORANGE}
+          />
+        </View>
 
-      <TextInputField
-        label="First Name"
-        onChangeText={(v) => setFirstName(v)}
-      />
-      <TextInputField label="Last Name" onChangeText={(v) => setLastName(v)} />
-      <TextInputField label="Email" onChangeText={(v) => setEmail(v)} />
-      <TextInputField
-        label="Password"
-        onChangeText={(v) => setPassword(v)}
-        password={true}
-      />
-      <TextInputField
-        label="Confirm Password"
-        onChangeText={(v) => setConfirmPassword(v)}
-        password={true}
-      />
-      <Button text="Sign Up" onPress={() => onButtonPress()} />
-    </View>
+        <TextInputField
+          label="First Name"
+          onChangeText={(v) => setFirstName(v)}
+          returnKeyType="next"
+          onSubmitEditing={() => lastNameRef.current?.focus()}
+          blurOnSubmit={false}
+        />
+        <TextInputField
+          label="Last Name"
+          onChangeText={(v) => setLastName(v)}
+          ref={lastNameRef}
+          returnKeyType="next"
+          onSubmitEditing={() => emailRef.current?.focus()}
+          blurOnSubmit={false}
+        />
+        <TextInputField
+          label="Email"
+          onChangeText={(v) => setEmail(v)}
+          ref={emailRef}
+          returnKeyType="next"
+          onSubmitEditing={() => passwordRef.current?.focus()}
+          blurOnSubmit={false}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <TextInputField
+          label="Password"
+          onChangeText={(v) => setPassword(v)}
+          password={true}
+          ref={passwordRef}
+          returnKeyType="next"
+          onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+          blurOnSubmit={false}
+        />
+        <TextInputField
+          label="Confirm Password"
+          onChangeText={(v) => setConfirmPassword(v)}
+          password={true}
+          ref={confirmPasswordRef}
+          returnKeyType="done"
+          onSubmitEditing={() => onButtonPress()}
+        />
+        <Button text="Sign Up" onPress={() => onButtonPress()} />
+      </KeyboardAwareScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
