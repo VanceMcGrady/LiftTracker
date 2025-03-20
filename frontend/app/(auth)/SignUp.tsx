@@ -33,10 +33,10 @@ export default function SignUp() {
   const { user, setUser } = useContext(AuthContext) as any;
 
   // Create refs for each input field
-  const lastNameRef = useRef(null);
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const confirmPasswordRef = useRef(null);
+  const lastNameRef = useRef(null) as any;
+  const emailRef = useRef(null) as any;
+  const passwordRef = useRef(null) as any;
+  const confirmPasswordRef = useRef(null) as any;
 
   const onButtonPress = () => {
     if (!email || !password || !firstName || !lastName) {
