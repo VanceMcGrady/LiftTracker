@@ -1,37 +1,62 @@
-import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
-import React, { Component } from "react";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import React from "react";
 import Colors from "@/colors/Colors";
 
-type ButtonProps = {
+interface ButtonProps {
   text: string;
   onPress: () => void;
-  loading?: boolean;
-};
-export default function Button({
+  disabled?: boolean;
+  secondary?: boolean;
+}
+
+const Button = ({
   text,
   onPress,
-  loading = false,
-}: ButtonProps) {
-  //console.log("loading: ", loading);
+  disabled = false,
+  secondary = false,
+}: ButtonProps) => {
   return (
     <TouchableOpacity
+      style={[
+        styles.button,
+        disabled && styles.disabledButton,
+        secondary && styles.secondaryButton,
+      ]}
       onPress={onPress}
-      style={{
-        marginTop: 15,
-        backgroundColor: Colors.PRIMARY,
-        padding: 10,
-        borderRadius: 10,
-      }}
+      disabled={disabled}
     >
-      {loading ? (
-        <ActivityIndicator color={Colors.WHITE}></ActivityIndicator>
-      ) : (
-        <Text
-          style={{ color: Colors.WHITE, textAlign: "center", fontSize: 18 }}
-        >
-          {text}
-        </Text>
-      )}
+      <Text style={[styles.text, secondary && styles.secondaryText]}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: Colors.ORANGE,
+    padding: 15,
+    borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 10,
+    alignItems: "center",
+  },
+  text: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  disabledButton: {
+    backgroundColor: "#ccc",
+  },
+  secondaryButton: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: Colors.ORANGE,
+  },
+  secondaryText: {
+    color: Colors.ORANGE,
+  },
+});
+
+export default Button;

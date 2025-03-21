@@ -62,7 +62,8 @@ export default function SignUp() {
           return;
         }
         setUser(result.data);
-        router.push("/home-view");
+        console.log("User created successfully, pushing to onboarding");
+        router.push("/onboarding"); // Changed from /home-view to /onboarding
       })
       .catch((error) => {
         alert(`error in signup: ${error.message}`);
