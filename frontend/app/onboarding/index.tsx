@@ -67,13 +67,14 @@ export default function OnboardingScreen() {
   const savePreferencesAndContinue = async () => {
     try {
       // Save workout preferences to backend
-      const result = await axios.post(
-        process.env.EXPO_PUBLIC_HOST_URL + "/user/preferences",
-        {
-          userId: user._id, // Assuming user object has an _id field
-          ...preferences,
-        }
-      );
+      console.log("Saving preferences", preferences);
+      // const result = await axios.post(
+      //   process.env.EXPO_PUBLIC_HOST_URL + "/user/preferences",
+      //   {
+      //     userId: user._id, // Assuming user object has an _id field
+      //     ...preferences,
+      //   }
+      // );
 
       // Navigate to home screen or routine recommendation
       router.push("/home-view");
